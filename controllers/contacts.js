@@ -1,24 +1,34 @@
 const mongodb = require('../data/database');
-const ObjectId = require('mongodb').ObjectId;
+const { ObjectId } = require('bson'); 
 
 const getAll = async (req, res) => {
-    const result = await mongodb.getDatabase().db().collection('contacts').find();
-    result.toArray().then((contacts) => {
-        res.setHeader('Content-Type', 'application/json');
-        res.status(200).json(contacts);
-    });
+  try {
+    const db = mongodb.getDatabase().db('project1'); 
+    const result = await db.collection('contacts').find();
+    const contacts = await result.toArray();
+    res.setHeader('Content-Type', 'application/json');
+    res.status(200).json(contacts);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Failed to retrieve contacts.' });
+  }
 };
 
 const getSingle = async (req, res) => {
-    const contactId = new ObjectId(req.params.id);
-    const result = await mongodb.getDatabase().db().collection('contacts').find({ _id: contactId });
-    result.toArray().then((contacts) => {
-        res.setHeader('Content-Type', 'application/json');
-        res.status(200).json(contacts[0]);
-    });
+  try {
+    const contactId = ObjectId.createFromHexString(req.params.id);
+    const db = mongodb.getDatabase().db('project1'); 
+    const result = await db.collection('contacts').find({ _id: contactId });
+    const contacts = await result.toArray();
+    res.setHeader('Content-Type', 'application/json');
+    res.status(200).json(contacts[0]);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Failed to retrieve contact.' });
+  }
 };
 
-module.exports = {
-    getAll,
-    getSingle
+module.exports = { 
+    getAll, 
+    getSingle 
 };
