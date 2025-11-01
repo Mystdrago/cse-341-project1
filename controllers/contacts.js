@@ -4,7 +4,7 @@ const { ObjectId } = require('bson');
 const getAll = async (req, res) => {
   try {
     const db = mongodb.getDatabase().db('project1'); 
-    const result = await db.collection('contacts').find();
+    const result = await db.collection('Contacts').find();
     const contacts = await result.toArray();
     res.setHeader('Content-Type', 'application/json');
     res.status(200).json(contacts);
@@ -18,7 +18,7 @@ const getSingle = async (req, res) => {
   try {
     const contactId = ObjectId.createFromHexString(req.params.id);
     const db = mongodb.getDatabase().db('project1'); 
-    const result = await db.collection('contacts').find({ _id: contactId });
+    const result = await db.collection('Contacts').find({ _id: contactId });
     const contacts = await result.toArray();
     res.setHeader('Content-Type', 'application/json');
     res.status(200).json(contacts[0]);
