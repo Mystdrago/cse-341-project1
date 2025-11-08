@@ -1,0 +1,30 @@
+GET http://localhost:3000/contacts
+
+GET http://localhost:3000/contacts/690650e78e17819844028b45 HTTP/1.1
+
+POST http://localhost:3000/contacts HTTP/1.1
+content-type: application/json
+
+{
+
+    "firstName":"Stephan",
+    "lastName":"Halls",
+    "email":"stephan.halls@yahoo.com",
+    "favoriteColor":"Blue",
+    "birthday":"6/7/1998"
+
+}
+
+PUT http://localhost:3000/contacts/690652c78e17819844028b47 HTTP/1.1
+content-type: application/json
+
+{
+   "firstName":"Curtis",
+    "lastName":"Halls",
+    "email":"curtishalls@ymail.com",
+    "favoriteColor":"Red",
+    "birthday":"1/2/1997" 
+}
+
+
+DELETE http://localhost:3000/contacts/690652c78e17819844028b47 HTTP/1.1
