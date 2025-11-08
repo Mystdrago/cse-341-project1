@@ -40,7 +40,7 @@ const createContact = async (req, res) => {
     birthday: req.body.birthday
   };
   const response = await mongodb.getDatabase().db().collection('Contacts').insertOne(contact);
-  if (response.acknowlegded) {
+  if (response.acknowledged) {
     res.status(204).send();
   }
   else {
@@ -70,7 +70,7 @@ const deleteContact = async (req, res) => {
   // #swagger.tags=['Contacts']
   const contactId = new ObjectId(String(req.params.id));
   const response = await mongodb.getDatabase().db().collection('Contacts').deleteOne({_id: contactId});
-    if (response.deleteCount > 0) {
+    if (response.deletedCount > 0) {
     res.status(204).send();
   } else {
     res.status(500).json(response.error || 'Some error occured while deleting the contact.')
